@@ -1,34 +1,67 @@
-sudo: required
-
+language: ruby
+sudo: false
+rvm:
+  - 2.3.0
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: EMACS_VERSION=snapshot
+cache:
+  - bundler
+  - directories:
+      - "$HOME/emacs"
 env:
-  - ARCH_TRAVIS_CLEAN_CHROOT=1
-
-language: c
-
-compiler:
-  - gcc
-  - clang
-
-arch:
-  repos:
-    - archlinuxfr=http://repo.archlinux.fr/$arch
-  packages:
-    - procps-ng
-    - reflector
-    # aur
-    - screenfetch-git
-    - emacs
-  script:
-    - "sudo screenfetch"
-    - "reflector --verbose -l 20 --sort rate -p https"
-    - "echo $CC"
-    - "touch test_file"
-    - "./run-ci.sh simple.el"
-    - "./run-ci.sh vanilla.el"
-
+  matrix:
+    - EMACS_VERSION=24.5
+    - EMACS_VERSION=25.1-rc2
+    - EMACS_VERSION=25.1
+    - EMACS_VERSION=25.2
+    - EMACS_VERSION=snapshot
+    - TEXINFO_VERSION=6.1
+before_install:
+  - export PATH="$HOME/bin:$PATH"
 script:
-  - "bash ./arch-travis.sh"
-  - "ls -l"
+  - if [[ -n $EMACS_VERSION ]]; then make -f emacs-travis.mk install_emacs; fi
+  - if [[ -n $TEXINFO_VERSION ]]; then make -f emacs-travis.mk install_texinfo; fi
+  - make -f emacs-travis.mk test
 
 
 
+
+
+
+#sudo: required
+#
+#env:
+#  - ARCH_TRAVIS_CLEAN_CHROOT=1
+#
+#language: c
+#
+#compiler:
+#  - gcc
+#  - clang
+#
+#arch:
+#  repos:
+#    - archlinuxfr=http://repo.archlinux.fr/$arch
+#  packages:
+#    - procps-ng
+#    - reflector
+#    # aur
+#    - screenfetch-git
+#    - emacs
+#  script:
+#    - "sudo screenfetch"
+#    - "reflector --verbose -l 20 --sort rate -p https"
+#    - "echo $CC"
+#    - "touch test_file"
+#    - "./run-ci.sh simple.el"
+#    - "./run-ci.sh vanilla.el"
+#
+#script:
+#  - "bash ./arch-travis.sh"
+#  - "ls -l"
+#
+#
+#
+#
