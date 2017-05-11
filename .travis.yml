@@ -23,8 +23,12 @@ arch:
     - "reflector --verbose -l 20 --sort rate -p https"
     - "echo $CC"
     - "touch test_file"
+    - "./run.sh simple.el"
+    - "./run.sh vanilla.el"
 
 script:
   - "bash ./arch-travis.sh"
   - "ls -l"
-  - "emacs --batch --eval \"(princ (version))\""
+
+
+
