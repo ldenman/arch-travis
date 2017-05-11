@@ -27,3 +27,5 @@ arch:
 script:
   - "bash ./arch-travis.sh"
   - "ls -l"
+  - "bash ./run-ci.sh simple.el"
+  - "bash ./run-ci.sh vanilla.el"
