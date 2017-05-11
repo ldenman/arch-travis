@@ -27,4 +27,4 @@ arch:
 script:
   - "bash ./arch-travis.sh"
   - "ls -l"
-  - "emacs --batch -Q --eval \"(version\)\""
+  - "emacs --batch -Q --eval \"(version)\""
