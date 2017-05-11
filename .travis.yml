@@ -21,7 +21,7 @@ before_install:
   - export PATH="$HOME/bin:$PATH"
 script:
   - if [[ -n $EMACS_VERSION ]]; then make -f emacs-travis.mk install_emacs; fi
-  - "./run-ci.sh simple.el"
+  - "./run-ci.sh minimal.el"
   - "./run-ci.sh vanilla.el"
 
 #sudo: required
