@@ -24,11 +24,8 @@ script:
   - if [[ -n $EMACS_VERSION ]]; then make -f emacs-travis.mk install_emacs; fi
   - if [[ -n $TEXINFO_VERSION ]]; then make -f emacs-travis.mk install_texinfo; fi
   - make -f emacs-travis.mk test
-
-
-
-
-
+  - "./run-ci.sh simple.el"
+  - "./run-ci.sh vanilla.el"
 
 #sudo: required
 #
